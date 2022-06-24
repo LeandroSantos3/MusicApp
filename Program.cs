@@ -39,7 +39,8 @@ breakpointMenuPrincipal:
                 Console.WriteLine("1- Reproduzir musica");
                 Console.WriteLine("2- Listar Musicas");
                 Console.WriteLine("3- +Info PLaylist -guest");
-                Console.WriteLine("4- Adicionar novo Utilizador"); //sign in
+                Console.WriteLine("4- Reproduzir Musica Nova");
+                Console.WriteLine("5- Adicionar novo Utilizador"); //sign in
 
                 int opcao2 = int.Parse(Console.ReadLine());
                 switch (opcao2)
@@ -81,6 +82,11 @@ breakpointMenuPrincipal:
                             break;
                         }
                     case 4:
+                        {
+                            MusicApp.ReproduzirMusicaNova();
+                            break;
+                        }
+                    case 5:
                         {
                         checkpoint:
 
@@ -174,7 +180,9 @@ breakpointMenuPrincipal:
                                 Console.WriteLine("0 - <- VOLTAR");
                                 Console.WriteLine("1- Reproduzir musica");
                                 Console.WriteLine("2- Listar Musicas");
-                                Console.WriteLine("3- +Info PLaylist");
+                                Console.WriteLine("3- +Info PLaylist - padrão");
+                                Console.WriteLine("4- Reproduzir musica nova");
+                                Console.WriteLine("5- Reproduzir PLaylist Toda");
 
                                 int opcao3 = int.Parse(Console.ReadLine());
                                 switch (opcao3)
@@ -214,6 +222,16 @@ breakpointMenuPrincipal:
                                             MusicApp.MostrarInfoPlaylist(nome);
                                             break;
                                         }
+                                    case 4:
+                                        {
+                                            MusicApp.ReproduzirMusicaNova();
+                                            break;
+                                        }
+                                    case 5:
+                                        {
+                                            MusicApp.ReproduzirPlaylist();
+                                            break;
+                                        }
                                     default:
                                         {
                                             Console.WriteLine("Nenhuma opção selecioando");
@@ -247,9 +265,11 @@ breakpointMenuPrincipal:
                                 Console.WriteLine("2- Listar Musicas");
                                 Console.WriteLine("3- +Info PLaylist");
                                 Console.WriteLine("4- Classificar Musica");
-                                Console.WriteLine("5- Ver classicacao Musica");
+                                Console.WriteLine("5- Ver classicacao Musicas");
                                 Console.WriteLine("6- +Info Musica");
                                 Console.WriteLine("7- +Info Artista");
+                                Console.WriteLine("8- Reproduzir musica nova");
+                                Console.WriteLine("9- Reproduzir PLaylist Toda");
 
                                 int opcao3 = int.Parse(Console.ReadLine());
                                 switch (opcao3)
@@ -318,10 +338,10 @@ breakpointMenuPrincipal:
                                         }
                                     case 5:
                                         {
-                                            Console.WriteLine("o nome da media a saber?");
-                                            string nomeMusica = Console.ReadLine();
+                                            //Console.WriteLine("o nome da media a saber?");
+                                            //string nomeMusica = Console.ReadLine();
                                             //MusicApp.MostrarInfoMedia(nomeMusica);
-                                            MusicApp.MostrarEstatisticasDeMedia(nomeMusica);
+                                            MusicApp.MostrarEstatisticasDeMedia();
                                             break;
                                         }
                                     case 6:
@@ -343,6 +363,16 @@ breakpointMenuPrincipal:
                                                 MusicApp.MostrarInfoArtista(nome, nacionalidade);
                                             }
 
+                                            break;
+                                        }
+                                    case 8:                                        
+                                        {
+                                            MusicApp.ReproduzirMusicaNova();
+                                            break;                                     
+                                        }
+                                    case 9:
+                                        {
+                                            MusicApp.ReproduzirPlaylist();
                                             break;
                                         }
                                     default:
@@ -375,9 +405,9 @@ breakpointMenuPrincipal:
                 Console.WriteLine("0 - <- VOLTAR");
                 Console.WriteLine("1- Adicionar Musica");
                 Console.WriteLine("2- Eliminar Musica");
-                Console.WriteLine("3- Adicionar Playlist");
+                Console.WriteLine("3- Criar Playlist genérico");
                 Console.WriteLine("4- Eliminar Playlist");// seria a playlist geral dos guests
-                Console.WriteLine("5- Adicionar Musica PLaylist - Guest");
+               // Console.WriteLine("5- Adicionar Musica PLaylist - Guest");
                 Console.WriteLine("6- Listar Artistas");
                 Console.WriteLine("7- Adicionar Artista");
                 Console.WriteLine("9- Eliminar Utilizador");
@@ -479,6 +509,7 @@ breakpointMenuPrincipal:
                                 {
                                     Musica media = MusicApp.ProcurarMedia(nomeMusica);
                                     MusicApp.AdicionarMediaAPlaylist(media, playlist);
+                                    Console.WriteLine("Adicionado com sucesso");
                                 }
                                 else
                                     Console.WriteLine("Nenhuma media encontrada");
@@ -487,7 +518,7 @@ breakpointMenuPrincipal:
                             {
                                 Console.WriteLine("Nenhuma playlist encontrada");
                             }
-                            Console.WriteLine("Adicionado com sucesso");
+                            
 
 
                             break;
@@ -532,8 +563,8 @@ breakpointMenuPrincipal:
                         }
                     case 10: //case de testes
                         {
-                            MusicApp.MostrarUser();
-                            //MusicApp.ListarPlaylist();
+                            //MusicApp.MostrarUser();
+                            MusicApp.ListarPlaylist();
 
 
                             break;

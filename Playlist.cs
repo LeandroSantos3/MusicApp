@@ -33,5 +33,7 @@ namespace Trabalho_Prático
                 Console.WriteLine(item.Titulo+ " Eliminado com sucesso");
             }
         }
+        
+
     }
 }

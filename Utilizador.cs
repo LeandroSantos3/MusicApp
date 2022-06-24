@@ -58,7 +58,10 @@ namespace Trabalho_Prático
             List<Playlist> playlists = new List<Playlist>(); //pegar aqui para criar mais playlists
         }
 
-        public void CriarPlaylist() { }
+        public void CriarPlaylist() 
+        {
+            
+        }
         public void EliminarPlaylist() { }
         public void AdicionarMediaAPlaylist() { }
         public void EliminarMediaDePLaylist() { }

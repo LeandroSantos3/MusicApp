@@ -37,26 +37,18 @@ namespace Trabalho_Prático
             foreach (var item in artistas)
             {
                 if(item.Nome.Equals(nomeAAvaliar) &&item.Nacionalidade.Equals(nacionalidadeAAvaliar))
-                    return item;
-                                    
+                    return item;                                    
             }
             return null;
         }
 
         public void EliminarMusica(string nomeMusicaEliminar) 
         {
-            medias.Remove(ProcurarMedia(nomeMusicaEliminar)); //atenção ele retorna o proprio objeto
-            
+            medias.Remove(ProcurarMedia(nomeMusicaEliminar)); //atenção ele retorna o proprio objeto            
         }
-
-        //public void AdicionarPlaylist(string nomePlaylist)
-        //{
-        //    Playlist playlist = new Playlist(nomePlaylist);
-            
-        //}
+        
         public void AdicionarPlaylist(Playlist playlist)
         {            
-            //Playlist playlist = new Playlist(nomePlaylist);     //crio o objeto novo
             playlistas.Add(playlist);       //adiciono à listagem
         }
 
@@ -85,11 +77,10 @@ namespace Trabalho_Prático
             }
         }
 
-
         public void AdicionarUtilizador(Utilizador utilizador)
-       {     
+        {     
                 utilizadores.Add(utilizador); // mas assim ele permite ter n user com o mesmo nome....
-       }
+        }
 
         public void MostrarUser()
         {
@@ -149,8 +140,7 @@ namespace Trabalho_Prático
                     return item;
             }
             return null;
-        }
-        
+        }        
 
         public void EliminarArtista(string nomeArtistaEliminar, string nacionalidade ) 
         {
@@ -177,12 +167,7 @@ namespace Trabalho_Prático
             {
                 Console.WriteLine($"ID: {item.ID}, Titulo: {item.Titulo}");//, Genero: {item.Genero}, Duração(minutos): {item.Duracao}, Ano: {item.Ano}, Nome do Artista:{item.retornarArtista.Nome}, Nacionalidade do Artista: {item.retornarArtista.Nacionalidade}");
             }           
-        }
-
-        public void PlaylistsDoUtilizador()
-        {
-
-        }
+        }       
 
         public void ListarArtistas()
         {
@@ -232,21 +217,13 @@ namespace Trabalho_Prático
 
         public void MostrarInfoPlaylist(string nomePlaylist)
         {
-            ////if (PlayListAEliminar(nomePlaylist) != null)
-            ////{
-            ////    foreach (var item in playlistas)
-            ////    {
-            ////        Console.WriteLine($"As medias registadas na Playlist {nomePlaylist[]}\n");
-            ////    }
-            ////}
-            
-            //foreach (var item in playlistas)
-            //{
-            //    if(item.T)
-            //}
+            if (PlayListAEliminar(nomePlaylist) != null)
+            {
+                Console.WriteLine($"As medias registadas na Playlist {nomePlaylist} sao:\n");
+                ListarMusicas();                
+            }
             
         }
-
         public void MostrarInfoArtista(string nomeArtista, string nacionalidade)
         {
             foreach (var item in artistas)
@@ -258,36 +235,53 @@ namespace Trabalho_Prático
             }
         }
 
-        public void MostrarEstatisticasDeMedia(string nomeMediaASAber) //estatistica em registo
+        public void MostrarEstatisticasDeMedia()/*string nomeMediaASAber) *///estatistica em registo
         {
-            if (ProcurarMedia(nomeMediaASAber) == null)
-                Console.WriteLine("a musica nao existe");
-            else
-            {
+            //if (ProcurarMedia(nomeMediaASAber) == null)
+            //    Console.WriteLine("a musica nao existe");
+            //else
+            //{
                 foreach (var item in registos)
                 {
-                    if (item.media.Titulo.Equals(nomeMediaASAber))
-                    {
+                    //if (item.media.Titulo.Equals(nomeMediaASAber))
+                    //{
                         item.MostrarRegisto();
-                    }
+                    //}
                 }
-            }
-        }
-
-        public void MostrarEstatisticasDoUtilizador() { }
-
+            //}
+        }        
         public void ReproduzirMusica(Musica media) 
         {
             foreach (var item in registos)
             {
-                if (item.media.Titulo.Equals(media.Titulo))
+                if (item.media.Titulo.Equals(media.Titulo)) 
                     item.media.NumeroReproducao++;
             }
         }
 
-        public void ReproduzirMusicaNova() { }
+        public void ReproduzirMusicaNova()
+        {
+            foreach (var item in medias)
+            {
+                if (item.NumeroReproducao.Equals(0))
+                {
+                    ReproduzirMusica(item);//reproduz o pri,meiro com numerção a 0
+                    Console.WriteLine("tocando musica nova...");
+                }
+            }
+        }
 
-        public void ReproduzirPlaylist() { }
+        public void ReproduzirPlaylist()
+        {
+            foreach (var item in medias)
+            {
+                 ReproduzirMusica(item);                
+            }
+            Console.WriteLine("playing...toas as musicas da playlist foi tocada");
+        }
+
+        public void MostrarEstatisticasDoUtilizador() { }
+
 
         public void ReproduzirMusicasDoArtista() { }
 
@@ -307,7 +301,12 @@ namespace Trabalho_Prático
 
         public void ELiminarMediaDePlaylist() { }
 
+        public void PlaylistsDoUtilizador()
+        {
+            //foreach (var item in collection)
+            //{
 
+            //}
+        }
     }
 }
-//teste
