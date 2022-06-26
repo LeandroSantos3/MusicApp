@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//use essa class para servir de Menu geral e que contenha todas os métodos e afins.
 
 namespace Trabalho_Prático
 {
     internal class MusicApp
     {
-        List<Musica> medias;
+        List<Musica> medias; //consjunto de media da MusicApp como um todo
         List<Utilizador> utilizadores;
         List<Artista> artistas;              
-        List<Playlist> playlistas;
-        List<Playlist> MediaPlaylist;
-        List<Registo> registos;
+        List<Playlist> playlistas; //playlist generalizada para todos os useres, mas independentemente do tipo de user e da quantidade todos os useres terão acesso - só pode ser criado e editado pelo Admin
+        List<Playlist> MediaPlaylist; //playlist de cada UserPremium
+        List<Registo> registos; //guarda cada media classificada
         
 
         public MusicApp()
@@ -23,7 +22,7 @@ namespace Trabalho_Prático
             medias = new List<Musica>();
             utilizadores = new List<Utilizador>();
             artistas=new List<Artista>();           
-            playlistas = new List<Playlist>(); //playlist para os guest´s
+            playlistas = new List<Playlist>(); //playlist para os guest´s, podendo ser mais de um, mas os user terão acesso a todos eles, pois serão as playlist's "default"
             registos = new List<Registo>();
         }
     
@@ -209,7 +208,7 @@ namespace Trabalho_Prático
                     {
                         Console.WriteLine($"ID: {item.media.ID}, Titulo: {item.media.Titulo}, Genero: {item.media.Genero}, Duração(minutos): {item.media.Duracao}, Ano: {item.media.Ano}, " +
                             $"Nome do Artista:{item.media.retornarArtista.Nome}, Nacionalidade do Artista: {item.media.retornarArtista.Nacionalidade}");
-                        //item.MostrarRegisto();
+                        item.MostrarRegisto();
                     }
                 }
             }
@@ -220,7 +219,22 @@ namespace Trabalho_Prático
             if (PlayListAEliminar(nomePlaylist) != null)
             {
                 Console.WriteLine($"As medias registadas na Playlist {nomePlaylist} sao:\n");
-                ListarMusicas();                
+                if (playlistas.Count < 0)
+                {
+                    Console.WriteLine("Ainda não está nada registado na lista, o admin precisa adicionar musicas àplaylist genérica");
+                }
+                else
+                {
+                    foreach (var item in playlistas)
+                    {
+                        item.MostarPLaylist();
+                    }
+                }                
+                //ListarMusicas();                
+            }
+            else
+            {
+                Console.WriteLine("PLaylist não existe");               
             }
             
         }
@@ -246,7 +260,7 @@ namespace Trabalho_Prático
                     //if (item.media.Titulo.Equals(nomeMediaASAber))
                     //{
                         item.MostrarRegisto();
-                    //}
+                    //}i
                 }
             //}
         }        
@@ -265,7 +279,7 @@ namespace Trabalho_Prático
             {
                 if (item.NumeroReproducao.Equals(0))
                 {
-                    ReproduzirMusica(item);//reproduz o pri,meiro com numerção a 0
+                    ReproduzirMusica(item);     //reproduz os com o numero de reprodução == 0
                     Console.WriteLine("tocando musica nova...");
                 }
             }
@@ -277,36 +291,55 @@ namespace Trabalho_Prático
             {
                  ReproduzirMusica(item);                
             }
-            Console.WriteLine("playing...toas as musicas da playlist foi tocada");
+            Console.WriteLine("playing...todas as musicas da playlist foi tocada");
         }
 
-        public void MostrarEstatisticasDoUtilizador() { }
-
-
-        public void ReproduzirMusicasDoArtista() { }
-
-        public void AlterarTipoUtilizador() { }
-
-        public void MostrarPlaylist() 
+        
+        public void ReproduzirMusicasDoArtista(Artista artista) 
         {
-            //Console.WriteLine("A sua PLaylist tem o nome de:" + )
-            
+            foreach (var item in medias)
+            {
+                if(item.retornarArtista.Nome.Equals(artista.Nome)&& item.retornarArtista.Nacionalidade.Equals(artista.Nacionalidade))
+                {
+                    ReproduzirMusica(item);
+                }
+            }
+        }
+
+       public void MostrarPlaylist(string nomePLaylist) 
+        {
+            foreach (var item in playlistas)
+            {
+                if (item.nomePlaylist.Equals(nomePLaylist))
+                {
+                    item.MostarPLaylist();
+                }
+            }            
         }
 
         public void AdicionarMediaAPlaylist(Musica media, Playlist playlist)
-        {
-             
+        {             
             playlist.AdicionarMedia(media);//adicionar a media à coleção
         }
 
-        public void ELiminarMediaDePlaylist() { }
+        public void ELiminarMediaDePlaylist(Musica media, Playlist playlist)
+        {
+            playlist.RemoverMedia(media.Titulo);
+        }
 
         public void PlaylistsDoUtilizador()
         {
-            //foreach (var item in collection)
-            //{
-
-            //}
+            
         }
+        public void MostrarEstatisticasDoUtilizador() 
+        {
+
+        }
+        public void AlterarTipoUtilizador()
+        {
+
+        }
+
+
     }
 }

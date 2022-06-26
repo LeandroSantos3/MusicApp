@@ -270,6 +270,7 @@ breakpointMenuPrincipal:
                                 Console.WriteLine("7- +Info Artista");
                                 Console.WriteLine("8- Reproduzir musica nova");
                                 Console.WriteLine("9- Reproduzir PLaylist Toda");
+                                Console.WriteLine("10- Reproduzir Musicas de um Artista");
 
                                 int opcao3 = int.Parse(Console.ReadLine());
                                 switch (opcao3)
@@ -375,6 +376,19 @@ breakpointMenuPrincipal:
                                             MusicApp.ReproduzirPlaylist();
                                             break;
                                         }
+                                    case 10:
+                                        {
+                                            Console.WriteLine(" O nome do artista");
+                                            string nomeA = Console.ReadLine();
+                                            Console.WriteLine(" A sua nacionalidade");
+                                            string nacioA = Console.ReadLine();
+                                            if (MusicApp.ProcurarArtistaAEliminar(nomeA, nacioA) == null)
+                                                Console.WriteLine("Artista não existe nas nosssas listagens");
+                                            else
+                                                MusicApp.ReproduzirMusicasDoArtista(MusicApp.ProcurarArtistaAEliminar(nomeA, nacioA));
+                                            
+                                            break;
+                                        }
                                     default:
                                         {
                                             Console.WriteLine("Nenhuma opção selecioando");
@@ -407,12 +421,14 @@ breakpointMenuPrincipal:
                 Console.WriteLine("2- Eliminar Musica");
                 Console.WriteLine("3- Criar Playlist genérico");
                 Console.WriteLine("4- Eliminar Playlist");// seria a playlist geral dos guests
-               // Console.WriteLine("5- Adicionar Musica PLaylist - Guest");
+                Console.WriteLine("5- Adicionar Musica PLaylist - Guest");
                 Console.WriteLine("6- Listar Artistas");
                 Console.WriteLine("7- Adicionar Artista");
                 Console.WriteLine("9- Eliminar Utilizador");
                 Console.WriteLine("8- Eliminar Artista");
                 Console.WriteLine("10- Listar User");
+                Console.WriteLine("11- Eliminar Musica da PLaylist genérica");
+                Console.WriteLine("12- Mostrar Musicas de qualquer PLaylist");
                 int opcao2 = int.Parse(Console.ReadLine());
                 switch (opcao2)
                 {
@@ -569,6 +585,40 @@ breakpointMenuPrincipal:
 
                             break;
                             //            }   //  testes!
+                        }
+                    case 11:
+                        {
+                            Console.WriteLine("O nome da PLaylist a eliminar a musica");
+                            string nomePlaylist = Console.ReadLine();
+                            if (MusicApp.PlayListAEliminar(nomePlaylist) != null)
+                            {
+                                Playlist playlist = MusicApp.PlayListAEliminar(nomePlaylist);
+                                Console.WriteLine("o nome da Musica");
+                                string nomeMusica = Console.ReadLine();
+                                if (MusicApp.ProcurarMedia(nomeMusica) != null)
+                                {
+                                    Musica media = MusicApp.ProcurarMedia(nomeMusica);
+                                    MusicApp.ELiminarMediaDePlaylist(media, playlist);
+                                    Console.WriteLine("eliminado com sucesso");
+                                }
+                                else
+                                    Console.WriteLine("Nenhuma media encontrada");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nenhuma playlist encontrada");
+                            }
+                            break;
+                        }
+                    case 12:
+                        {
+                            Console.WriteLine("O nome da playlist");
+                            string nomePlaylist = Console.ReadLine();
+                            if (MusicApp.PlayListAEliminar(nomePlaylist) != null)
+                                MusicApp.MostrarPlaylist(nomePlaylist);
+                            else
+                                Console.WriteLine("Não existe nenhuma playlist com esse nome");
+                             break;
                         }
                     default:
                         {

@@ -21,7 +21,7 @@ namespace Trabalho_Prático
         public string Titulo { get; }
         public string Genero { get; }
         public int Duracao { get; }
-        public int Ano { get; }//depois usar DateTime
+        public int Ano { get; }
 
         public Artista retornarArtista { get; } // para poder retorna o artista associado à media
 
@@ -31,7 +31,7 @@ namespace Trabalho_Prático
 
         public Media(string Titulo, string Genero, int Duracao, int Ano, Artista artista)
         {
-            //criar 
+            
             this.ID = ProximoNumero;
             ProximoNumero++;
             this.Titulo = Titulo;

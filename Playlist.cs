@@ -26,14 +26,34 @@ namespace Trabalho_Prático
 
         public void RemoverMedia(string nomeMediaAEliminar)
         {
+            if (ProcurarMedia(nomeMediaAEliminar) != null)
+            {
+                musicas.Remove(ProcurarMedia(nomeMediaAEliminar));
+               // Console.WriteLine("Eliminado com sucesso");
+            }
+            //else
+            //{
+            //    Console.WriteLine("Nenhuma media encontrada");
+            //}
+        }
+        public Media ProcurarMedia(string nomeMedia)
+        {
             foreach (var item in musicas)
             {
-                if (item.Titulo.Equals(nomeMediaAEliminar)) 
-                    musicas.Remove(item);
-                Console.WriteLine(item.Titulo+ " Eliminado com sucesso");
+                if (item.Titulo.Equals(nomeMedia))
+                    return item;
+            }
+            return null;
+        }
+
+        public void MostarPLaylist()
+        {
+            foreach (var item in musicas)
+            {
+                Console.WriteLine($"Titulo: {item.Titulo}, Artista: {item.retornarArtista.Nome}\n");
             }
         }
-        
 
     }
 }
+
