@@ -20,8 +20,7 @@ namespace Trabalho_Prático
         }
 
         public void MostrarRegisto()
-        {
-            //int a = media.ObterEstatistica();
+        {            
             Console.WriteLine($"{this.utilizador.Nome},{this.media.Titulo},classificação: {this.Classificacao},numero de reproduções: {media.ObterEstatistica()}");
         }
     }

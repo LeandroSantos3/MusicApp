@@ -46,8 +46,7 @@ namespace Trabalho_Prático
         }
 
         public int ObterEstatistica() 
-        {
-            //Console.WriteLine("A musica tem um total de "+NumeroReproducao+"reproduções"); funciona!!
+        {            
             return NumeroReproducao;
         }
 

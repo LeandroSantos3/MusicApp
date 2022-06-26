@@ -175,7 +175,7 @@ breakpointMenuPrincipal:
                             {
                                 Console.Clear();
                                 Console.WriteLine("\n**************************");
-                                Console.WriteLine("            MENU USUARIO           ");
+                                Console.WriteLine("     MENU USUARIO           ");
                                 Console.WriteLine("***************************\n");
                                 Console.WriteLine("0 - <- VOLTAR");
                                 Console.WriteLine("1- Reproduzir musica");
@@ -259,11 +259,11 @@ breakpointMenuPrincipal:
                                 
                                 Console.Clear();
                                 Console.WriteLine("\n**************************");
-                                Console.WriteLine("            MENU USUARIO *PREMIUM*          ");
+                                Console.WriteLine(" MENU USUARIO *PREMIUM*     ");
                                 Console.WriteLine("***************************\n");
                                 Console.WriteLine("1- Reproduzir musica");
                                 Console.WriteLine("2- Listar Musicas");
-                                Console.WriteLine("3- +Info PLaylist");
+                                Console.WriteLine("3- +Info PLaylist generico");
                                 Console.WriteLine("4- Classificar Musica");
                                 Console.WriteLine("5- Ver classicacao Musicas");
                                 Console.WriteLine("6- +Info Musica");
@@ -271,6 +271,9 @@ breakpointMenuPrincipal:
                                 Console.WriteLine("8- Reproduzir musica nova");
                                 Console.WriteLine("9- Reproduzir PLaylist Toda");
                                 Console.WriteLine("10- Reproduzir Musicas de um Artista");
+                                Console.WriteLine("11- Criar nova Playlist");
+                                Console.WriteLine("12- +Info PLaylist");
+                                Console.WriteLine("13- Adicionar musica a uma PLaylist privada");
 
                                 int opcao3 = int.Parse(Console.ReadLine());
                                 switch (opcao3)
@@ -324,10 +327,11 @@ breakpointMenuPrincipal:
                                             }
                                             else
                                             {
-                                                Console.WriteLine("O nome do Utilizador");
-                                                string nome = Console.ReadLine();
+                                                //Console.WriteLine("O nome do Utilizador");
+                                                //string nome = Console.ReadLine();
+                                                //Utilizador utilizador = MusicApp.ProcurarUtilizadorAEliminar(nome); //embora o nome, ele procura se existe um utuilizador na lista de Utilizadores
 
-                                                Utilizador utilizador = MusicApp.ProcurarUtilizadorAEliminar(nome); //embora o nome, ele procura se existe um utuilizador na lista de Utilizadores
+                                                Premium utilizador = MusicApp.AtribuirContaPremuim(nomeU, pass);
                                                 Console.WriteLine("A sua classificação de 1-5(5 - entra pra sua playlist de favoritos)");
                                                 int pontucao = int.Parse(Console.ReadLine());
 
@@ -389,6 +393,32 @@ breakpointMenuPrincipal:
                                             
                                             break;
                                         }
+                                    case 11:
+                                        {
+                                            Premium user = MusicApp.AtribuirContaPremuim(nomeU, pass);
+                                            user.CriarPlaylist();
+                                            break;
+                                        }
+                                    case 12:
+                                        {
+                                            Premium user = MusicApp.AtribuirContaPremuim(nomeU, pass);
+                                            Console.WriteLine("O nome da playlist pesssoal");
+                                            string nomeP = Console.ReadLine();
+                                            user.VerPLaylistCriada(nomeP);
+                                            break;
+                                        }
+                                    case 13:
+                                        {
+                                            Premium user = MusicApp.AtribuirContaPremuim(nomeU, pass);
+                                            Console.WriteLine("O nome da Musica a adicionar à Playlist?");
+                                            string nome = Console.ReadLine(); 
+                                            Musica media = MusicApp.ProcurarMedia(nome);
+                                            Console.WriteLine("o nome da Playlist?");
+                                            string nomeP = Console.ReadLine();
+                                            Playlist playlist = user.ProcurarPlalistPrivada(nomeP);
+                                            user.AdicionarMediaAPlaylist(media, playlist);
+                                            break;
+                                        }
                                     default:
                                         {
                                             Console.WriteLine("Nenhuma opção selecioando");
@@ -428,7 +458,7 @@ breakpointMenuPrincipal:
                 Console.WriteLine("8- Eliminar Artista");
                 Console.WriteLine("10- Listar User");
                 Console.WriteLine("11- Eliminar Musica da PLaylist genérica");
-                Console.WriteLine("12- Mostrar Musicas de qualquer PLaylist");
+                Console.WriteLine("12- Mostrar Musicas de qualquer PLaylist genérica");
                 int opcao2 = int.Parse(Console.ReadLine());
                 switch (opcao2)
                 {
@@ -633,78 +663,5 @@ breakpointMenuPrincipal:
                
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//    Console.WriteLine("0- Sair");
-
-
-//    Console.WriteLine("Escolha uma opção");
-//    int opcao1 = int.Parse(Console.ReadLine());
-
-//    switch (opcao1)
-//    {
-//        case 0:
-//            {
-//                Console.WriteLine("Adeus...");
-//                break;
-//                return;
-//            }
-//        
-
-
-
-
-//int opcao2 = int.Parse(Console.ReadLine());
-//switch (opcao2)
-//{
-//    case 0:
-//        {
-//            Console.Clear();
-//            goto breakpointMenuPrincipal;
-//            break;
-//        }
-//}
-
-
-
-
-
-
-//        case 15:
-//            {
-//    Console.WriteLine("o nome da Playlist a saber mais informações");
-//    string nome = Console.ReadLine();
-//    MusicApp.MostrarInfoPlaylist(nome);
-//    break;
-//}
-
-//       
-//        //case 19:
-//        //    {
-//        //        Console.WriteLine("o nome da musica a saber as plays");
-//        //        string nomeM = Console.ReadLine();
-
-//        //        MusicApp.Obter
-//        //        break;
-//        //    }
-
-
-
-//        default:
-//            Console.WriteLine("Nenhuma opção selecioanda");
-//            break;
-//    }
-//}
-
 
 

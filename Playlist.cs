@@ -8,15 +8,13 @@ namespace Trabalho_Prático
 {
     internal class Playlist
     {
-        List<Media> musicas;
-        //List<Utilizador> utilizadores;
+        List<Media> musicas;       
         public string nomePlaylist;
 
         public Playlist(string nome)
         {
             this.nomePlaylist = nome;
-            musicas = new List<Media>();
-            //utilizadores = new List<Utilizador>();
+            musicas = new List<Media>();            
         }
 
         public void AdicionarMedia(Media media)
@@ -29,12 +27,8 @@ namespace Trabalho_Prático
             if (ProcurarMedia(nomeMediaAEliminar) != null)
             {
                 musicas.Remove(ProcurarMedia(nomeMediaAEliminar));
-               // Console.WriteLine("Eliminado com sucesso");
+               
             }
-            //else
-            //{
-            //    Console.WriteLine("Nenhuma media encontrada");
-            //}
         }
         public Media ProcurarMedia(string nomeMedia)
         {

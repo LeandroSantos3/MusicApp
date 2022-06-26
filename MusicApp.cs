@@ -107,7 +107,19 @@ namespace Trabalho_Prático
                     return false;
             }
             return true;
-
+        }
+        public Premium AtribuirContaPremuim(string nomeAValidar, int pass)   //extra
+        {
+            foreach (var item in utilizadores)
+            {
+                if (item.Nome.Equals(nomeAValidar) && item.Pass.Equals(pass))
+                {
+                    Premium utilizador = new Premium(item.Nome, item.Pass);
+                    return utilizador;
+                }
+                    
+            }
+            return null;
         }
 
         public void EliminarUtilizador(string nomeUtilizador)
