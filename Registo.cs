@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Trabalho_Prático
+﻿namespace Trabalho_Prático
 {
     internal class Registo // classe Associativa
     {
@@ -20,7 +14,7 @@ namespace Trabalho_Prático
         }
 
         public void MostrarRegisto()
-        {            
+        {
             Console.WriteLine($"{this.utilizador.Nome},{this.media.Titulo},classificação: {this.Classificacao},numero de reproduções: {media.ObterEstatistica()}");
         }
     }

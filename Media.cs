@@ -1,12 +1,6 @@
 ﻿//Leandro a44097
 //Carla a
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Trabalho_Prático
 {
     internal class Media
@@ -27,11 +21,11 @@ namespace Trabalho_Prático
 
         public int NumeroReproducao { get; set; } = 0;
 
-        
+
 
         public Media(string Titulo, string Genero, int Duracao, int Ano, Artista artista)
         {
-            
+
             this.ID = ProximoNumero;
             ProximoNumero++;
             this.Titulo = Titulo;
@@ -39,14 +33,14 @@ namespace Trabalho_Prático
             this.Duracao = Duracao;
             this.Ano = Ano;
             this.retornarArtista = artista;
-            this.NumeroReproducao=  NumeroReproducaoZerado;
+            this.NumeroReproducao = NumeroReproducaoZerado;
 
             registos = new List<Registo>();
 
         }
 
-        public int ObterEstatistica() 
-        {            
+        public int ObterEstatistica()
+        {
             return NumeroReproducao;
         }
 
@@ -72,9 +66,9 @@ namespace Trabalho_Prático
             int Ano, Artista artista) : base(Titulo, Genero, Duracao, Ano, artista)
         {
             this.Bps = Bps;
-           
-        }      
+
+        }
     }
 }
 
-    
+

@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Trabalho_Prático
+﻿namespace Trabalho_Prático
 {
     internal class Playlist
     {
-        List<Media> musicas;       
+        List<Media> musicas;
         public string nomePlaylist;
 
         public Playlist(string nome)
         {
             this.nomePlaylist = nome;
-            musicas = new List<Media>();            
+            musicas = new List<Media>();
         }
 
         public void AdicionarMedia(Media media)
@@ -24,10 +18,11 @@ namespace Trabalho_Prático
 
         public void RemoverMedia(string nomeMediaAEliminar)
         {
+            MostarPLaylist();
             if (ProcurarMedia(nomeMediaAEliminar) != null)
             {
                 musicas.Remove(ProcurarMedia(nomeMediaAEliminar));
-               
+                MostarPLaylist();
             }
         }
         public Media ProcurarMedia(string nomeMedia)
@@ -41,13 +36,13 @@ namespace Trabalho_Prático
         }
 
         public void MostarPLaylist()
-        {
+        {            
+             Console.WriteLine("total " + musicas.Count());
             foreach (var item in musicas)
             {
                 Console.WriteLine($"Titulo: {item.Titulo}, Artista: {item.retornarArtista.Nome}\n");
             }
         }
-
     }
 }
 

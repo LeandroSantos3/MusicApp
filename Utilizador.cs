@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Trabalho_Prático
+﻿namespace Trabalho_Prático
 {
     internal class Utilizador
     {
-        Playlist playlist;        
+        public Playlist playlist;
         List<Registo> registos;
         public List<Playlist> playlists;
         public static int proximo = 1;
@@ -22,100 +16,148 @@ namespace Trabalho_Prático
             registos = new List<Registo>();
             playlist = new Playlist("Default");
             playlists = new List<Playlist>();
-        }                     
-           
+            //Console.WriteLine("Utilizador criado1");
+        }
     }
+
 
     internal class Regular : Utilizador
     {
-        
+
         public Regular(string nome)
         {
             this.Nome = nome;
-            //Playlist playlist = new Playlist("Default");            
         }
     }
 
     internal class Premium : Utilizador
     {
 
-        //List<Playlist> playlists;
         public Premium(string nome, int pass)
         {
             this.Nome = nome;
             this.Pass = pass;
-            //Playlist playlist = new Playlist("Default");
-           //List<Playlist> playlists = new Playlist; //pegar aqui para criar mais playlists
         }
 
-        public void CriarPlaylist() 
-        {
-            Console.WriteLine("O nome da playlist?");
-            string nomePLaylistNova = Console.ReadLine();
-            Playlist playlist2 = new Playlist(nomePLaylistNova);
-            //playlists = new List<Playlist>(); //pegar aqui para criar mais playlists
-            ////    playlists.Add(playlist2);
-            CriarColecao(playlist2);
-        }
-        public void CriarColecao(Playlist playlist)
+        public void CriarPlaylist(Playlist playlist)
         {
             playlists.Add(playlist);
-            Console.WriteLine("Criado e adicionado com sucesso!");
+            Console.WriteLine("Playlist privada - " + playlist.nomePlaylist + " - criada com sucesso");
         }
-        public void VerPLaylistCriada(string nome)
+
+        public void EliminarPlaylist(string nomeP)
+        {
+            //playlist.Elimia = null;
+            //if(playlist== null)
+            //{
+            //    Console.WriteLine("Nulo");
+            //}
+            //bool res = playlists.Remove(playlist); 
+            //if (res)
+            //{
+            //    this.playlist = null;
+            //    Console.WriteLine("Eliminado");
+            //    return;
+            //}
+            //Console.WriteLine("nao eliminado");
+            //playlists.Remove(ProcurarPlalistPrivada(nomeP));      testes
+            if (playlists.Remove(ProcurarPlalistPrivada(nomeP)) == true)
+            {
+                playlist = null;
+                Console.WriteLine("Eliminado com sucesso");
+                //VerPLaylistCriada(nomeP);
+            }               
+            //else
+            //Console.WriteLine("Não foi eliminado");
+        }
+
+        public void AdicionarMediaAPlaylist(Musica media, Playlist playlist, Premium user)
         {
             foreach (var item in playlists)
             {
-                if (item.nomePlaylist.Equals(nome))
-                {
-                    Console.WriteLine(playlists.Count()); item.MostarPLaylist();
-                }
 
-                else
-                    Console.WriteLine("Lista vazia");
+                if (item.nomePlaylist.Equals(playlist.nomePlaylist))
+                {
+                    user.AdicioanarListaPrivada(media);
+                }
             }
         }
-        
-        public void EliminarPlaylist() { }
-        public void AdicionarMediaAPlaylist(Musica media,Playlist playlist)
+
+        public void EliminarMediaDePLaylist(Playlist playlist, Media media,string mediaM)
         {
-            //foreach (var item in playlists)
+            //if(media == null)
             //{
-            //    if (item.nomePlaylist.Equals(playlist.nomePlaylist))
-            //    {
-            //        playlist.Ad
+            //    Console.WriteLine("Musica não existe ou já foi eliminado da playlist privada");
+            //}
+            //else
+            //{
+            //    media = playlist.ProcurarMedia(mediaM);
+            //    if (media != null)
+            //    {                       
+            //        media = null;
+            //        playlist.RemoverMedia(mediaM);                        
+            //        Console.WriteLine("Eliminado com sucesso");
             //    }
             //    else
             //    {
-            //        Console.WriteLine("Não existe nada com esse nome nas playlists privadas");
+            //        Console.WriteLine("Nada encontrado");
             //    }
+
             //}
-            playlist.AdicionarMedia(media);
+            playlist.MostarPLaylist();
+            playlist.RemoverMedia(mediaM);
         }
 
-        //public void AdicioanarListaPrivada(Musica media)
-        //{
-           
-        //}
+        public void VerPLaylistCriada(string nomeP) //extra
+        {
+            if (playlist == null)
+                Console.WriteLine("Impossivel saber, playlist não existe ou foi eliminada");
+            else
+                playlist.MostarPLaylist();
+        }        
+
+        public void AdicioanarListaPrivada(Musica media)
+        {
+            playlist.AdicionarMedia(media);
+            Console.WriteLine("Adicioando com sucesso");
+        }
 
         public Playlist ProcurarPlalistPrivada(string nome)
         {
+            //Console.WriteLine("Nao existe nada com esse nome1");
             foreach (var item in playlists)
             {
+                //Console.WriteLine("Nao existe nada com esse nome2");
                 if (item.nomePlaylist.Equals(nome))
                     return item;
                 else
                     Console.WriteLine("Nao existe nada com esse nome");
-            }return null;
+            }
+            return null;
         }
-        public void EliminarMediaDePLaylist() { }
-        public void ClassificarMedia() { }
 
-        public void ObterEstatistica() { }
+        //public Musica ProcurarMusicaListaPrivada(string nomeMusica)
+        //{
+            
+        //}
 
+
+
+        //public void ClassificarMedia() { }
+
+        //public void ObterEstatistica() { }
 
 
 
     }
 
 }
+
+//public void MostrarItens(Playlist playlist)
+//{
+//    Console.WriteLine($"Os dados da musica:");
+//    Console.WriteLine($"Nome: {playlist.nomePlaylist}");
+//    playlist.MostarPLaylist();
+
+//}
+
