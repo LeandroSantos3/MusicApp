@@ -394,10 +394,11 @@ breakpointMenuPrincipal:
                                     case 12:
                                         {
                                             Premium user = MusicApp.AtribuirContaPremuim(nomeU, pass);
-                                            user = MusicApp.AtribuirContaPremuim(nomeU, pass);
+                                            //user = MusicApp.AtribuirContaPremuim(nomeU, pass);
                                             Console.WriteLine("O nome da playlist pesssoal");
                                             string nomeP = Console.ReadLine();
-                                            user.VerPLaylistCriada(nomeP);
+                                            Playlist playlist = user.ProcurarPlalistPrivada(nomeP);
+                                            user.VerPLaylistCriada(playlist);
                                             break;
                                         }
                                     case 13:
@@ -419,14 +420,14 @@ breakpointMenuPrincipal:
                                             Console.WriteLine("o nome da Playlist?");
                                             string nomeP = Console.ReadLine();
                                             Playlist playlist = user.ProcurarPlalistPrivada(nomeP);
-                                            user.ProcurarPlalistPrivada(nomeP);
-                                            playlist.MostarPLaylist();
-                                            Console.WriteLine("Nome playlist: " + playlist.nomePlaylist);
+                                            //user.ProcurarPlalistPrivada(nomeP);
+                                            //playlist.MostarPLaylist();
+                                            //Console.WriteLine("Nome playlist: " + playlist.nomePlaylist);
                                             Console.WriteLine("O nome da musica");
                                             string nomeM = Console.ReadLine();
                                             Media media = playlist.ProcurarMedia(nomeM);
 
-                                            user.EliminarMediaDePLaylist(playlist, media, nomeM);
+                                            user.EliminarMediaDePLaylist(playlist, media);
                                             break;
                                         }
                                     case 15:
@@ -517,7 +518,7 @@ breakpointMenuPrincipal:
                                 MusicApp.AdicionarArtista(artista2);
                                 Console.WriteLine("\n-------->Musica e Artista criada e adicionada com sucesso");
                             }
-                            else
+                            else // pense em optmizar aqui, um metodo que não permita a duplicar o codigo e menos erros.
                             {
                                 Musica media = new Musica(bps, titulo, genero, duracao, ano, artista);
                                 MusicApp.AdicionarMusica(media);

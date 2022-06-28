@@ -2,7 +2,7 @@
 {
     internal class Utilizador
     {
-        public Playlist playlist;
+        static protected Playlist playlist =  new Playlist("Default");
         List<Registo> registos;
         public List<Playlist> playlists;
         public static int proximo = 1;
@@ -14,16 +14,14 @@
         {
             this.id = proximo++;
             registos = new List<Registo>();
-            playlist = new Playlist("Default");
+            //playlist = new Playlist("Default"); *** Cuidado, pois estava a criar sema logo de novo e passariam a ser independentes de cada um...
             playlists = new List<Playlist>();
             //Console.WriteLine("Utilizador criado1");
         }
     }
 
-
     internal class Regular : Utilizador
     {
-
         public Regular(string nome)
         {
             this.Nome = nome;
@@ -47,43 +45,15 @@
 
         public void EliminarPlaylist(string nomeP)
         {
-            //playlist.Elimia = null;
-            //if(playlist== null)
-            //{
-            //    Console.WriteLine("Nulo");
-            //}
-            //bool res = playlists.Remove(playlist); 
-            //if (res)
-            //{
-            //    this.playlist = null;
-            //    Console.WriteLine("Eliminado");
-            //    return;
-            //}
-            //Console.WriteLine("nao eliminado");
-            //playlists.Remove(ProcurarPlalistPrivada(nomeP));      testes
+
             if (playlists.Remove(ProcurarPlalistPrivada(nomeP)) == true)
             {
                 playlist = null;
                 Console.WriteLine("Eliminado com sucesso");
-                //VerPLaylistCriada(nomeP);
-            }               
-            //else
-            //Console.WriteLine("Não foi eliminado");
-        }
-
-        public void AdicionarMediaAPlaylist(Musica media, Playlist playlist, Premium user)
-        {
-            foreach (var item in playlists)
-            {
-
-                if (item.nomePlaylist.Equals(playlist.nomePlaylist))
-                {
-                    user.AdicioanarListaPrivada(media);
-                }
             }
-        }
 
-        public void EliminarMediaDePLaylist(Playlist playlist, Media media,string mediaM)
+        }
+        public void EliminarMediaDePLaylist(Playlist playlist, Media media)
         {
             //if(media == null)
             //{
@@ -104,54 +74,87 @@
             //    }
 
             //}
+
+            //playlist.RemoverMedia(mediaM);
+            // user.ProcurarMediaInPlaylistPrivada(mediaM, playlist);
+            playlist.RemoverMedia(media.Titulo);
+            Console.WriteLine("Eliminado com sucesso?");
             playlist.MostarPLaylist();
-            playlist.RemoverMedia(mediaM);
         }
 
-        public void VerPLaylistCriada(string nomeP) //extra
+        public void AdicionarMediaAPlaylist(Musica media, Playlist playlist, Premium user)
         {
-            if (playlist == null)
+            foreach (var item in playlists)
+            {
+
+                if (item.nomePlaylist.Equals(playlist.nomePlaylist))
+                {
+                    user.AdicioanarListaPrivada(media, playlist);
+                }
+            }
+        }
+
+        public void EliminarMediaDePLaylist()
+        {
+
+        }
+
+        public void VerPLaylistCriada(Playlist playlist) //extra
+        {
+            if (playlists == null)
                 Console.WriteLine("Impossivel saber, playlist não existe ou foi eliminada");
             else
                 playlist.MostarPLaylist();
-        }        
+        }
 
-        public void AdicioanarListaPrivada(Musica media)
+        public void AdicioanarListaPrivada(Musica media, Playlist playlist) //extra
         {
-            playlist.AdicionarMedia(media);
+            playlist.AdicionarMedia(media); // aqui vai pra a lista generica
             Console.WriteLine("Adicioando com sucesso");
         }
 
-        public Playlist ProcurarPlalistPrivada(string nome)
-        {
-            //Console.WriteLine("Nao existe nada com esse nome1");
+        public Playlist ProcurarPlalistPrivada(string nome) //extra
+        {            
             foreach (var item in playlists)
             {
-                //Console.WriteLine("Nao existe nada com esse nome2");
-                if (item.nomePlaylist.Equals(nome))
+               if (item.nomePlaylist.Equals(nome))
                     return item;
-                else
-                    Console.WriteLine("Nao existe nada com esse nome");
+                //else // está errado prq dará um loop de erros
+                    
             }
+            Console.WriteLine("Nao existe nada com esse nome");
             return null;
         }
 
-        //public Musica ProcurarMusicaListaPrivada(string nomeMusica)
+        //public Media ProcurarMediaInPlaylistPrivada(string nome, Playlist playlist)
         //{
-            
+        //    foreach (var item in ProcurarPlalistPrivada(nome)
+        //    {
+        //        if (item.ProcurarMedia(nome).Titulo.Equals(nome))
+        //        {
+        //            return item.ProcurarMedia(nome);
+        //        }
+        //    }
+        //    return null;
+
         //}
-
-
-
-        //public void ClassificarMedia() { }
-
-        //public void ObterEstatistica() { }
-
-
-
     }
-
 }
+
+
+//public Musica ProcurarMusicaListaPrivada(string nomeMusica)
+//{
+
+//}
+
+
+
+//public void ClassificarMedia() { }
+
+//public void ObterEstatistica() { }
+
+
+
 
 //public void MostrarItens(Playlist playlist)
 //{
@@ -160,4 +163,6 @@
 //    playlist.MostarPLaylist();
 
 //}
+
+
 
