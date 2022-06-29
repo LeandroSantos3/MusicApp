@@ -2,7 +2,7 @@
 {
     internal class Registo // classe Associativa
     {
-        Utilizador utilizador;
+        public Utilizador utilizador { get; }
         public Media media { get; }
         public int Classificacao { get; }
 

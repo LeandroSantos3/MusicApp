@@ -1,6 +1,4 @@
-﻿//Leandro a44097
-//Carla a
-
+﻿
 namespace Trabalho_Prático
 {
     internal class Artista

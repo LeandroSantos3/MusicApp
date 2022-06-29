@@ -1,7 +1,4 @@
-﻿//Leandro a44097
-//Carla a
-
-namespace Trabalho_Prático
+﻿namespace Trabalho_Prático
 {
     internal class Media
     {
@@ -44,7 +41,10 @@ namespace Trabalho_Prático
             return NumeroReproducao;
         }
 
-
+        public interface Reproduzivel
+        {
+            void Reproduzir(Media media);
+        }
     }
 
     internal class Video : Media
@@ -66,7 +66,6 @@ namespace Trabalho_Prático
             int Ano, Artista artista) : base(Titulo, Genero, Duracao, Ano, artista)
         {
             this.Bps = Bps;
-
         }
     }
 }

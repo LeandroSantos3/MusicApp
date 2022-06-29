@@ -2,11 +2,11 @@
 {
     internal class MusicApp
     {
-        List<Musica> medias; //consjunto de media da MusicApp como um todo
-        List<Utilizador> utilizadores;
-        List<Artista> artistas;
-        List<Playlist> playlistas; //playlist generalizada para todos os useres, mas independentemente do tipo de user e da quantidade todos os useres terão acesso - só pode ser criado e editado pelo Admin
-        List<Playlist> MediaPlaylist; //playlist de cada UserPremium
+        List<Musica> medias; //conjunto de medias da MusicApp como um todo
+        List<Utilizador> utilizadores; //lista de users
+        List<Artista> artistas; //lista de artistas
+        static List<Playlist> playlistas = new List<Playlist>(); //playlist generalizada para todos os useres, mas independentemente do tipo de user e da quantidade todos os useres terão acesso - só pode ser criado e editado pelo Admin
+
         List<Registo> registos; //guarda cada media classificada
 
 
@@ -15,7 +15,7 @@
             medias = new List<Musica>();
             utilizadores = new List<Utilizador>();
             artistas = new List<Artista>();
-            playlistas = new List<Playlist>(); //playlist para os guest´s, podendo ser mais de um, mas os user terão acesso a todos eles, pois serão as playlist's "default"
+            // playlistas = new List<Playlist>(); //playlist para os guest´s, podendo ser mais de um, mas os user terão acesso a todos eles, pois serão as playlist's "default"
             registos = new List<Registo>();
         }
 
@@ -24,7 +24,7 @@
             medias.Add(media);
         }
 
-        public Artista ValidarArtista(string nomeAAvaliar, string nacionalidadeAAvaliar) //extra
+        public Artista ValidarArtista(string nomeAAvaliar, string nacionalidadeAAvaliar)
         {
             foreach (var item in artistas)
             {
@@ -36,17 +36,18 @@
 
         public void EliminarMusica(string nomeMusicaEliminar)
         {
-            medias.Remove(ProcurarMedia(nomeMusicaEliminar)); //atenção ele retorna o proprio objeto            
+            medias.Remove(ProcurarMedia(nomeMusicaEliminar));
         }
 
         public void AdicionarPlaylist(Playlist playlist)
         {
-            playlistas.Add(playlist);       //adiciono à listagem
+            playlistas.Add(playlist);
         }
 
         public void EliminarPlaylist(string nomePlaylistAEliminar)
         {
             playlistas.Remove(PlayListAEliminar(nomePlaylistAEliminar));
+            Console.WriteLine("Eliminado com sucesso");
         }
 
         public Playlist PlayListAEliminar(string nomeAEliminar)
@@ -55,13 +56,11 @@
             {
                 if (item.nomePlaylist.Equals(nomeAEliminar))
                     return item;
-                else
-                    Console.WriteLine("Nenhuma PLaylist com esse nome");
-                //return null;
             }
+            //Console.WriteLine("Nenhuma PLaylist com esse nome\n");
             return null;
         }
-        public void ListarPlaylist() //extra
+        public void ListarPlaylist()
         {
             foreach (var item in playlistas)
             {
@@ -71,18 +70,18 @@
 
         public void AdicionarUtilizador(Utilizador utilizador)
         {
-            utilizadores.Add(utilizador); // mas assim ele permite ter n user com o mesmo nome....
+            utilizadores.Add(utilizador);
         }
 
         public void MostrarUser()
         {
             foreach (var item in utilizadores)
             {
-                Console.WriteLine($"id: {item.id}, nome: {item.Nome}");
+                Console.WriteLine($"id: {item.id}, nome: {item.Nome}\n");
             }
-        }         //*******   Funciona a criação de user com a herança e id auto
+        }
 
-        public bool ValidarConta(string nomeAValidar)   //extra
+        public bool ValidarConta(string nomeAValidar)
         {
             foreach (var item in utilizadores)
             {
@@ -92,7 +91,7 @@
             return true;
 
         }
-        public bool ValidarContaPremuim(string nomeAValidar, int pass)   //extra
+        public bool ValidarContaPremuim(string nomeAValidar, int pass)
         {
             foreach (var item in utilizadores)
             {
@@ -101,34 +100,32 @@
             }
             return true;
         }
-        public Premium AtribuirContaPremuim(string nomeAValidar, int pass)   //extra
+        public Premium AtribuirContaPremuim(string nomeAValidar, int pass)
         {
             foreach (var item in utilizadores)
             {
                 if (item.Nome.Equals(nomeAValidar) && item.Pass.Equals(pass))
                 {
                     Utilizador utilizador = item;
-                    return (Premium) utilizador;
+                    return (Premium)utilizador;
                 }
-
             }
             return null;
         }
 
         public void EliminarUtilizador(string nomeUtilizador)
         {
-            utilizadores.Remove(ProcurarUtilizadorAEliminar(nomeUtilizador));//elimina o primeiro com o nome igual
+            utilizadores.Remove(ProcurarUtilizadorAEliminar(nomeUtilizador));
         }
 
-        public Utilizador ProcurarUtilizadorAEliminar(string nomeUtilizador)//extra 
+        public Utilizador ProcurarUtilizadorAEliminar(string nomeUtilizador)
         {
             foreach (var item in utilizadores)
             {
                 if (item.Nome.Equals(nomeUtilizador))
                     return item;
-
             }
-            Console.WriteLine("Não existe nenhum utilizador com esse nome");
+            Console.WriteLine("Não existe nenhum utilizador com esse nome\n");
             return null;
         }
         public void AdicionarArtista(Artista artista)
@@ -151,17 +148,18 @@
             artistas.Remove(ProcurarArtistaAEliminar(nomeArtistaEliminar, nacionalidade));
 
         }
-        public Artista ProcurarArtistaAEliminar(string nomeArtistaEliminar, string nacionalidade) //não foi pedido
+        public Artista ProcurarArtistaAEliminar(string nomeArtistaEliminar, string nacionalidade) // obs:  esse metodo apesar do nome so procura e retorna o user, acabei por criar com esse nome que era pra ser auxiliar
+                                                                                                  //do metodo pra eliminar, mas depois acabei por o reaproveitar pro programa como um todo, então nao mudei o nome pra nao estar 
+                                                                                                  //sujeito a erros depois no final do projeto - dia atual dia 29/06 -  entra pretendida 1/07
         {
             foreach (var item in artistas)
             {
-                if (item.Nome.Equals(nomeArtistaEliminar) && item.Nacionalidade.Equals(nacionalidade)) //ou seja, se o nome for igual e o proprio tiver a mesma nacionalidade, ele o eliminará
+                if (item.Nome.Equals(nomeArtistaEliminar) && item.Nacionalidade.Equals(nacionalidade))
                 {
-                    //Console.WriteLine("Artista " + item.Nome + ", foi eliminado");
                     return item;
                 }
             }
-            Console.WriteLine("Artista não existe");
+            Console.WriteLine("Artista não existe\n");
             return null;
         }
 
@@ -169,7 +167,7 @@
         {
             foreach (var item in medias)
             {
-                Console.WriteLine($"ID: {item.ID}, Titulo: {item.Titulo}");//, Genero: {item.Genero}, Duração(minutos): {item.Duracao}, Ano: {item.Ano}, Nome do Artista:{item.retornarArtista.Nome}, Nacionalidade do Artista: {item.retornarArtista.Nacionalidade}");
+                Console.WriteLine($"ID: {item.Titulo}, Titulo: {item.retornarArtista.Nome}\n");
             }
         }
 
@@ -194,26 +192,21 @@
 
         public void ClassificarMedia(Registo registo)
         {
-            registos.Add(registo); //funciona!!
-
-            //falta adicionar na propria listagem de Utilizador - ficaria uma lista em paralelo
-
+            registos.Add(registo);
         }
 
-        public void MostrarInfoMedia(string nomeMusicaASaber) //aqui eu quero não só saber os dados da media mais principalemte os seus registos e suas classificações ;
-                                                              //uma musica pode ser classificada por n user (uso da classe associativa Registo
+        public void MostrarInfoMedia(string nomeMusicaASaber)
         {
             if (ProcurarMedia(nomeMusicaASaber) == null)
-                Console.WriteLine("a musica nao existe");
+                Console.WriteLine("a musica não existe\n");
             else
             {
-                foreach (var item in registos)
+                foreach (var item in medias)
                 {
-                    if (item.media.Titulo.Equals(nomeMusicaASaber))
+                    if (item.Titulo.Equals(nomeMusicaASaber))
                     {
-                        Console.WriteLine($"ID: {item.media.ID}, Titulo: {item.media.Titulo}, Genero: {item.media.Genero}, Duração(minutos): {item.media.Duracao}, Ano: {item.media.Ano}, " +
-                            $"Nome do Artista:{item.media.retornarArtista.Nome}, Nacionalidade do Artista: {item.media.retornarArtista.Nacionalidade}");
-                        item.MostrarRegisto();
+                        Console.WriteLine($"ID: {item.ID}, Titulo: {item.Titulo}, Genero: {item.Genero}, Duração(minutos): {item.Duracao}, Ano: {item.Ano}, " +
+                            $"Nome do Artista:{item.retornarArtista.Nome}, Nacionalidade do Artista: {item.retornarArtista.Nacionalidade}\n");
                     }
                 }
             }
@@ -221,67 +214,39 @@
 
         public void MostrarInfoPlaylist()
         {
-            //if (PlayListAEliminar(nomePlaylist) != null)
-            //{
-            //    Console.WriteLine($"As medias registadas na Playlist {nomePlaylist} sao:\n");
-            //    if (playlistas.Count < 0)
-            //    {
-            //        Console.WriteLine("Ainda não está nada registado na lista, o admin precisa adicionar musicas àplaylist genérica");
-            //    }
-            //    else
-            //    {
             foreach (var item in playlistas)
             {
-                if (playlistas.Count < 0)
-                {
-                    Console.WriteLine("Ainda não está nada registado na lista, o admin precisa adicionar musicas à Playlist genérica");
-                }
+                if (playlistas.Count == 0)
+                    Console.WriteLine("Ainda não está nada registado na lista, o admin precisa adicionar musicas à Playlist genérica\n");
                 else
                     item.MostarPLaylist();
             }
-            //}                
-            //ListarMusicas();                
-            //}
-            //else
-            //{
-            //    Console.WriteLine("PLaylist não existe");               
-            //}
-
-
         }
         public void MostrarInfoArtista(string nomeArtista, string nacionalidade)
         {
             foreach (var item in artistas)
             {
                 if (item.Nome.Equals(nomeArtista) && item.Nacionalidade.Equals(nacionalidade))
-                {
                     item.Mostrar();
-                }
             }
         }
 
-        public void MostrarEstatisticasDeMedia()/*Premium utilizador)*//*string nomeMediaASAber) *///estatistica em registo
+        public void MostrarEstatisticasDeMedia(Utilizador utilizador)
         {
-            //if (ProcurarMedia(nomeMediaASAber) == null)
-            //    Console.WriteLine("a musica nao existe");
-            //else
-            //{
             foreach (var item in registos)
             {
-                //if (item.Classificacao.Equals(utilizador.Nome))
-                //{
+                if (item.utilizador.Nome.Equals(utilizador.Nome))
+                {
                     item.MostrarRegisto();
-                //}
-                
+                }
             }
-            //}
         }
         public void ReproduzirMusica(Musica media)
         {
-            foreach (var item in registos)
+            foreach (var item in medias)
             {
-                if (item.media.Titulo.Equals(media.Titulo))
-                    item.media.NumeroReproducao++;
+                if (item.Titulo.Equals(media.Titulo))
+                    item.NumeroReproducao++;
             }
         }
 
@@ -293,15 +258,18 @@
                 {
                     ReproduzirMusica(item);     //reproduz os com o numero de reprodução == 0
                     Console.WriteLine("tocando musica nova...");
+                    break; //assim ele nao toca todas as == 0 de uma só vez
                 }
             }
         }
 
         public void ReproduzirPlaylist()
         {
-            foreach (var item in medias)
+            string nomeP = "Default";
+            foreach (var item in playlistas)
             {
-                ReproduzirMusica(item);
+                if (item.nomePlaylist.Equals(nomeP))
+                    ReproduzirMusica(item.RetornarItemPlaylist());
             }
             Console.WriteLine("playing...todas as musicas da playlist foi tocada");
         }
@@ -339,18 +307,24 @@
             playlist.RemoverMedia(media.Titulo);
         }
 
-        public void PlaylistsDoUtilizador()
-        {
+        //public Utilizador AlterarTipoUtilizador(Utilizador utilizador)
+        //{
+        //    foreach (var item in utilizadores)
+        //    {
+        //        if (item.Nome.Equals(utilizador.Nome))
+        //        {
+        //            CriarNovoUserRegular(item);                    
+        //        }
+        //    }return null;
+        //}
+        //public void CriarNovoUserRegular(Utilizador utilizador)
+        //{
+        //    utilizador =  new Regular(utilizador.Nome);
+        //    EliminarUtilizador(utilizador.Nome); // ele elimina o antigo
+        //    Console.WriteLine("Foi mudado a sua conta para o tipo Regular");
+        //}
 
-        }
-        public void MostrarEstatisticasDoUtilizador()
-        {
 
-        }
-        public void AlterarTipoUtilizador()
-        {
-
-        }
 
 
     }

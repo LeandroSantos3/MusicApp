@@ -10,6 +10,7 @@
             this.nomePlaylist = nome;
             musicas = new List<Media>();
         }
+        
 
         public void AdicionarMedia(Media media)
         {
@@ -17,12 +18,10 @@
         }
 
         public void RemoverMedia(string nomeMediaAEliminar)
-        {
-            MostarPLaylist();
+        {            
             if (ProcurarMedia(nomeMediaAEliminar) != null)
             {
-                musicas.Remove(ProcurarMedia(nomeMediaAEliminar));
-                MostarPLaylist();
+                musicas.Remove(ProcurarMedia(nomeMediaAEliminar));               
             }
         }
         public Media ProcurarMedia(string nomeMedia)
@@ -43,6 +42,17 @@
                 Console.WriteLine($"Titulo: {item.Titulo}, Artista: {item.retornarArtista.Nome}\n");
             }
         }
+
+        public Musica RetornarItemPlaylist()
+        {
+            foreach (var item in musicas)
+            {
+                return (Musica)item;
+            }
+            return null;
+        }
+
+        
     }
 }
 

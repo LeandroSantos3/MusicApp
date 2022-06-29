@@ -5,7 +5,6 @@ int status = 0;
 
 
 while (status == 0)
-//dps usar sistemas de menu encandeado
 {
 breakpointMenuPrincipal:
 
@@ -19,6 +18,8 @@ breakpointMenuPrincipal:
 
 
     Console.WriteLine("Escolha uma opção");
+    
+    
     int opcao = int.Parse(Console.ReadLine());
     switch (opcao)
     {
@@ -27,7 +28,6 @@ breakpointMenuPrincipal:
                 Console.WriteLine("Adeus...");
                 return;
                 break;
-
             }
         case 1:
             {
@@ -42,9 +42,10 @@ breakpointMenuPrincipal:
                 Console.WriteLine("4- Reproduzir Musica Nova");
                 Console.WriteLine("5- Adicionar novo Utilizador"); //sign in
 
-                int opcao2 = int.Parse(Console.ReadLine());
+                int opcao2 = int.Parse(Console.ReadLine());        
+                
                 switch (opcao2)
-                {
+                {                    
                     case 0:
                         {
                             Console.Clear();
@@ -61,7 +62,7 @@ breakpointMenuPrincipal:
                             {
                                 MusicApp.ReproduzirMusica(musica);
                                 Console.WriteLine("playing ...");
-                                //  ******** ->     fazer o system delay depois
+                                Thread.Sleep(2000);
                             }
                             break;
                         }
@@ -132,7 +133,6 @@ breakpointMenuPrincipal:
                                     Thread.Sleep(2000);
                                     goto breakpointMenuPrincipal;
                                 }
-
                             }
                             else
                             {
@@ -141,7 +141,6 @@ breakpointMenuPrincipal:
                             }
                             break;
                         }
-
                 }
                 break;
             }
@@ -166,7 +165,7 @@ breakpointMenuPrincipal:
                             goto breakpointMenuPrincipal;
                             break;
                         }
-                    case 1: //preciso carrregar a sessão do mesmo ****************
+                    case 1:
                         {
                             Console.WriteLine("O nome User");
                             string nomeU = Console.ReadLine();
@@ -182,6 +181,7 @@ breakpointMenuPrincipal:
                                 Console.WriteLine("3- +Info PLaylist - padrão");
                                 Console.WriteLine("4- Reproduzir musica nova");
                                 Console.WriteLine("5- Reproduzir PLaylist Toda");
+                                Console.WriteLine("6- Mudar Tipo de User");
 
                                 int opcao3 = int.Parse(Console.ReadLine());
                                 switch (opcao3)
@@ -225,6 +225,11 @@ breakpointMenuPrincipal:
                                     case 5:
                                         {
                                             MusicApp.ReproduzirPlaylist();
+                                            break;
+                                        }
+                                    case 6:
+                                        {
+
                                             break;
                                         }
                                     default:
@@ -272,6 +277,7 @@ breakpointMenuPrincipal:
                                 Console.WriteLine("13- Adicionar musica a uma PLaylist privada");
                                 Console.WriteLine("14- Eliminar musica a uma PLaylist privada");
                                 Console.WriteLine("15- Eliminar Playlist Privada");
+                                Console.WriteLine("16- Mudar Tipo de User");
 
                                 int opcao3 = int.Parse(Console.ReadLine());
                                 switch (opcao3)
@@ -334,8 +340,8 @@ breakpointMenuPrincipal:
                                         }
                                     case 5:
                                         {
-                                            //Premium utilizador = MusicApp.AtribuirContaPremuim(nomeU, pass);
-                                            MusicApp.MostrarEstatisticasDeMedia();/*utilizador);*/
+                                            Premium utilizador = MusicApp.AtribuirContaPremuim(nomeU, pass);
+                                            MusicApp.MostrarEstatisticasDeMedia(utilizador);
                                             break;
                                         }
                                     case 6:
@@ -394,7 +400,6 @@ breakpointMenuPrincipal:
                                     case 12:
                                         {
                                             Premium user = MusicApp.AtribuirContaPremuim(nomeU, pass);
-                                            //user = MusicApp.AtribuirContaPremuim(nomeU, pass);
                                             Console.WriteLine("O nome da playlist pesssoal");
                                             string nomeP = Console.ReadLine();
                                             Playlist playlist = user.ProcurarPlalistPrivada(nomeP);
@@ -420,9 +425,6 @@ breakpointMenuPrincipal:
                                             Console.WriteLine("o nome da Playlist?");
                                             string nomeP = Console.ReadLine();
                                             Playlist playlist = user.ProcurarPlalistPrivada(nomeP);
-                                            //user.ProcurarPlalistPrivada(nomeP);
-                                            //playlist.MostarPLaylist();
-                                            //Console.WriteLine("Nome playlist: " + playlist.nomePlaylist);
                                             Console.WriteLine("O nome da musica");
                                             string nomeM = Console.ReadLine();
                                             Media media = playlist.ProcurarMedia(nomeM);
@@ -441,6 +443,14 @@ breakpointMenuPrincipal:
 
                                             break;
                                         }
+                                    case 16:
+                                        {
+                                        //    Premium user = MusicApp.AtribuirContaPremuim(nomeU, pass);
+                                        //    MusicApp.AlterarTipoUtilizador(user);
+                                           break;
+                                        }
+                                        
+                                       
                                     default:
                                         {
                                             Console.WriteLine("Nenhuma opção selecioando");
@@ -453,7 +463,7 @@ breakpointMenuPrincipal:
                             {
 
                                 Console.WriteLine("Não existe nenhum User Regular com esse nome");
-                                //ssytem sleep
+                                Thread.Sleep(2000);
                                 goto breakpointUser;
                             }
                             break;
@@ -472,16 +482,16 @@ breakpointMenuPrincipal:
                 Console.WriteLine("0 - <- VOLTAR");
                 Console.WriteLine("1- Adicionar Musica");
                 Console.WriteLine("2- Eliminar Musica");
-                Console.WriteLine("3- Criar Playlist genérico");
-                Console.WriteLine("4- Eliminar Playlist");// seria a playlist geral dos guests
-                Console.WriteLine("5- Adicionar Musica PLaylist - Guest");
+                Console.WriteLine("3- Criar Playlist genérica");
+                Console.WriteLine("4- Eliminar Playlist genérica");
+                Console.WriteLine("5- Adicionar Musica PLaylist - genérica");
                 Console.WriteLine("6- Listar Artistas");
                 Console.WriteLine("7- Adicionar Artista");
                 Console.WriteLine("9- Eliminar Utilizador");
                 Console.WriteLine("8- Eliminar Artista");
                 Console.WriteLine("10- Listar User");
                 Console.WriteLine("11- Eliminar Musica da PLaylist genérica");
-                Console.WriteLine("12- Mostrar Musicas de qualquer PLaylist genérica");
+                Console.WriteLine("12- Mostrar Musicas da PLaylist genérica");
                 int opcao2 = int.Parse(Console.ReadLine());
                 switch (opcao2)
                 {
@@ -542,8 +552,8 @@ breakpointMenuPrincipal:
                         }
                     case 3:
                         {
-                            Console.WriteLine("O nome da Playlist");
-                            string nomePlaylist = Console.ReadLine();
+
+                            string nomePlaylist = "Default";
                             Playlist playlist = MusicApp.ValidarPlaylist(nomePlaylist);
                             if (playlist == null)
                             {
@@ -552,16 +562,14 @@ breakpointMenuPrincipal:
                                 Console.WriteLine("Playlist criado e adicionado com sucesso");
                             }
                             else
-                            {
-                                //    MusicApp.AdicionarPlaylist(playlist);
-                                Console.WriteLine("Playlist já existe na nossa listagem");
-                            }
+                            
+                                Console.WriteLine("Playlist generica já existe na nossa listagem");
                             break;
                         }
                     case 4:
                         {
-                            Console.WriteLine("Nome Playlist");
-                            string nome = Console.ReadLine();
+
+                            string nome = "Default";
                             MusicApp.EliminarPlaylist(nome);
                             break;
                         }
@@ -629,10 +637,8 @@ breakpointMenuPrincipal:
                         }
                     case 10: //case de testes
                         {
-                            //MusicApp.MostrarUser();
-                            MusicApp.ListarPlaylist();
-
-
+                            MusicApp.MostrarUser();
+                            //MusicApp.ListarPlaylist();
                             break;
                             //            }   //  testes!
                         }
@@ -662,8 +668,7 @@ breakpointMenuPrincipal:
                         }
                     case 12:
                         {
-                            Console.WriteLine("O nome da playlist");
-                            string nomePlaylist = Console.ReadLine();
+                            string nomePlaylist = "Default";
                             if (MusicApp.PlayListAEliminar(nomePlaylist) != null)
                                 MusicApp.MostrarPlaylist(nomePlaylist);
                             else
@@ -680,7 +685,6 @@ breakpointMenuPrincipal:
                 }
                 break;
             }
-
     }
 }
 
