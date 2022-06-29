@@ -13,8 +13,8 @@
         
 
         public void AdicionarMedia(Media media)
-        {
-            musicas.Add(media);
+        {            
+             musicas.Add(media);                       
         }
 
         public void RemoverMedia(string nomeMediaAEliminar)

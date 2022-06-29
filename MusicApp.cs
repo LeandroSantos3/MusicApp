@@ -1,27 +1,51 @@
 ﻿namespace Trabalho_Prático
 {
     internal class MusicApp
-    {
+    {      
         List<Musica> medias; //conjunto de medias da MusicApp como um todo
         List<Utilizador> utilizadores; //lista de users
         List<Artista> artistas; //lista de artistas
         static List<Playlist> playlistas = new List<Playlist>(); //playlist generalizada para todos os useres, mas independentemente do tipo de user e da quantidade todos os useres terão acesso - só pode ser criado e editado pelo Admin
 
-        List<Registo> registos; //guarda cada media classificada
-
+        List<Registo> registos; //guarda cada media classificada de cada user
+        static protected Playlist favoritos = new Playlist("Favoritos");
 
         public MusicApp()
         {
+            Artista leo1 = new Artista("Leo", "Cabo Verde");
+            Artista leo2 = new Artista("Leo Santos", "Cabo Verde / PT");
+            Musica m1 = new Musica(1, "musica1", "teste", 1, 2022, leo1);
+            Musica m2 = new Musica(1, "musica2", "teste", 1, 2022, leo2);
+            Musica m3 = new Musica(1, "musica3", "teste", 1, 2022, leo1);
+            Utilizador leop = new Premium("leop", 1);
+
+            
+
             medias = new List<Musica>();
             utilizadores = new List<Utilizador>();
             artistas = new List<Artista>();
             // playlistas = new List<Playlist>(); //playlist para os guest´s, podendo ser mais de um, mas os user terão acesso a todos eles, pois serão as playlist's "default"
             registos = new List<Registo>();
+
+
+            medias.Add(m1); medias.Add(m2); medias.Add(m3);
+            utilizadores.Add(leop);
+            artistas.Add(leo2); artistas.Add(leo1);
         }
 
         public void AdicionarMusica(Musica media)
         {
             medias.Add(media);
+        }
+
+        public bool ValidarMedia(Musica media)
+        {
+            foreach (var item in medias)
+            {
+                if (item.Titulo.Equals(media.Titulo))
+                    return false;
+            }
+            return true;
         }
 
         public Artista ValidarArtista(string nomeAAvaliar, string nacionalidadeAAvaliar)
@@ -165,10 +189,18 @@
 
         public void ListarMusicas()
         {
-            foreach (var item in medias)
+            if( medias.Count == 0)
             {
-                Console.WriteLine($"ID: {item.Titulo}, Titulo: {item.retornarArtista.Nome}\n");
+                Console.WriteLine("Ainda não existem musicas na nossa App\n");
             }
+            else
+            {
+                Console.WriteLine("Todas as nossas musicas, até o momento...\n");
+                foreach (var item in medias)
+                {
+                    Console.WriteLine($"Titulo: {item.Titulo}, Artista: {item.retornarArtista.Nome}\n");
+                }
+            }            
         }
 
         public void ListarArtistas()
@@ -206,7 +238,8 @@
                     if (item.Titulo.Equals(nomeMusicaASaber))
                     {
                         Console.WriteLine($"ID: {item.ID}, Titulo: {item.Titulo}, Genero: {item.Genero}, Duração(minutos): {item.Duracao}, Ano: {item.Ano}, " +
-                            $"Nome do Artista:{item.retornarArtista.Nome}, Nacionalidade do Artista: {item.retornarArtista.Nacionalidade}\n");
+                            $"Nome do Artista:{item.retornarArtista.Nome}, Nacionalidade do Artista: {item.retornarArtista.Nacionalidade} e o numero de reproduções total: {item.ObterEstatistica()}\n");
+                        
                     }
                 }
             }
@@ -214,13 +247,16 @@
 
         public void MostrarInfoPlaylist()
         {
-            foreach (var item in playlistas)
+            if(playlistas.Count==0)
+                Console.WriteLine("Ainda não está nada registado na lista, o admin precisa adicionar musicas à Playlist genérica\n");
+            else
             {
-                if (playlistas.Count == 0)
-                    Console.WriteLine("Ainda não está nada registado na lista, o admin precisa adicionar musicas à Playlist genérica\n");
-                else
+                foreach (var item in playlistas)
+                {                   
                     item.MostarPLaylist();
+                }
             }
+            
         }
         public void MostrarInfoArtista(string nomeArtista, string nacionalidade)
         {
@@ -241,6 +277,30 @@
                 }
             }
         }
+
+        public void MostrarListaFavoritos(Utilizador utilizador)
+        {
+            foreach (var item in utilizadores)
+            {
+                if (item.Nome.Equals(utilizador.Nome))
+                    favoritos.MostarPLaylist();
+                else
+                    Console.WriteLine("O user ainda não tem nenhuma musica favorita");
+            }            
+        }
+
+        public bool AtribuirFavorito(Utilizador utilizador, Registo registo, Media media)
+        {
+            foreach (var item in registos)
+            {
+                if (item.utilizador.Nome.Equals(registo.utilizador.Nome) && item.Classificacao.Equals(registo.Classificacao) && item.media.Titulo.Equals(media.Titulo))
+                {                    
+                    favoritos.AdicionarMedia((Musica)item.media);
+                    return true;
+                }
+            }return false;            
+        }
+
         public void ReproduzirMusica(Musica media)
         {
             foreach (var item in medias)
@@ -259,7 +319,7 @@
                     ReproduzirMusica(item);     //reproduz os com o numero de reprodução == 0
                     Console.WriteLine("tocando musica nova...");
                     break; //assim ele nao toca todas as == 0 de uma só vez
-                }
+                } 
             }
         }
 
