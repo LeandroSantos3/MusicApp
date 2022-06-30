@@ -1,4 +1,5 @@
-﻿namespace Trabalho_Prático
+﻿//a44097 - Leandro Santos
+namespace Trabalho_Prático
 {
     internal class Media
     {
@@ -41,9 +42,9 @@
             return NumeroReproducao;
         }
 
-        public interface Reproduzivel
+        public interface IReproduzivel
         {
-            void Reproduzir(Media media);
+            public void Reproduzir();
         }
     }
 

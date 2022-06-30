@@ -1,4 +1,5 @@
-﻿namespace Trabalho_Prático
+﻿//a44097 - Leandro Santos
+namespace Trabalho_Prático
 {
     internal class MusicApp
     {      
@@ -269,24 +270,31 @@
 
         public void MostrarEstatisticasDeMedia(Utilizador utilizador)
         {
-            foreach (var item in registos)
+            if(registos.Count() == null)            
+                Console.WriteLine("Ainda nao foi classificado nenhuma musica");
+            
+            else
             {
-                if (item.utilizador.Nome.Equals(utilizador.Nome))
+                foreach (var item in registos)
                 {
-                    item.MostrarRegisto();
+                    if (item.utilizador.Nome.Equals(utilizador.Nome))
+                    {
+                        item.MostrarRegisto();
+                    }
                 }
             }
+            
         }
 
         public void MostrarListaFavoritos(Utilizador utilizador)
-        {
+        {         
+
             foreach (var item in utilizadores)
             {
-                if (item.Nome.Equals(utilizador.Nome))
-                    favoritos.MostarPLaylist();
-                else
-                    Console.WriteLine("O user ainda não tem nenhuma musica favorita");
-            }            
+               if (item.Nome.Equals(utilizador.Nome))
+                    favoritos.MostarPLaylist();               
+            }
+            
         }
 
         public bool AtribuirFavorito(Utilizador utilizador, Registo registo, Media media)

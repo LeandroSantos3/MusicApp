@@ -1,4 +1,5 @@
-﻿using Trabalho_Prático;
+﻿//a44097 - Leandro Santos
+using Trabalho_Prático;
 
 MusicApp MusicApp = new MusicApp();
 int status = 0;
@@ -8,7 +9,7 @@ int status = 0;
 while (status == 0)
 {
 breakpointMenuPrincipal:
-
+    Console.Clear();
     Console.WriteLine("\n**************************");
     Console.WriteLine("            MENU INICIO           ");
     Console.WriteLine("***************************\n");
@@ -16,12 +17,16 @@ breakpointMenuPrincipal:
     Console.WriteLine("2- Utilizador");
     Console.WriteLine("3- Admin");
     Console.WriteLine("4- sair");
-
-
-    Console.WriteLine("Escolha uma opção");
-    
-    
+    Console.WriteLine("\nEscolha uma opção");
     int opcao = int.Parse(Console.ReadLine());
+
+    while (opcao < 0 || opcao > 4)
+    {
+        Console.WriteLine("Escolha uma opção entre 1 -4 ");
+        Thread.Sleep(1000);
+        goto breakpointMenuPrincipal;
+    }
+
     switch (opcao)
     {
         case 4:
@@ -43,8 +48,14 @@ breakpointMenuPrincipal:
                 Console.WriteLine("3- +Info PLaylist - Guest");
                 Console.WriteLine("4- Reproduzir Musica Nova");
                 Console.WriteLine("5- Adicionar novo Utilizador"); //sign in
-
-                int opcao2 = int.Parse(Console.ReadLine());        
+                Console.WriteLine("\nEscolha uma opção: ");
+                int opcao2 = int.Parse(Console.ReadLine());
+                while (opcao2 < 0 || opcao2 > 5)
+                {
+                    Console.WriteLine("Escolha uma opção entre 0-5 ");
+                    Thread.Sleep(1000);
+                    goto MenuGuest;
+                }              
                 
                 switch (opcao2)
                 {                    
@@ -76,12 +87,13 @@ breakpointMenuPrincipal:
                         }
 
                     case 2:
-                        {                            
+                        {
                             MusicApp.ListarMusicas();
                             Thread.Sleep(2000);
                             goto MenuGuest;
                             break;
                         }
+                        
                     case 3:
                         {
                             MusicApp.MostrarInfoPlaylist();
@@ -299,10 +311,17 @@ breakpointMenuPrincipal:
                                 Console.WriteLine("13- Adicionar musica a uma PLaylist privada");
                                 Console.WriteLine("14- Eliminar musica a uma PLaylist privada");
                                 Console.WriteLine("15- Eliminar Playlist Privada");
-                                Console.WriteLine("16- Mudar Tipo de User");
+                                //Console.WriteLine("16- Mudar Tipo de User");
                                 Console.WriteLine("17- +Info PLaylist - favoritos");
 
                                 int opcao3 = int.Parse(Console.ReadLine());
+
+                                while (opcao3<0 || opcao3 > 17)
+                                {
+                                    Console.WriteLine("Selecione entre 0-17");
+                                    Thread.Sleep(1000);
+                                    goto breakpointPremium;
+                                }
                                 switch (opcao3)
                                 {
                                     case 0:
@@ -330,7 +349,6 @@ breakpointMenuPrincipal:
                                         {
                                             Console.WriteLine("Todas as nossas musicas, até o momento...\n");
                                             MusicApp.ListarMusicas();
-                                            //Thread.Sleep(5000);
                                             Console.ReadKey();
                                             goto breakpointPremium;
                                             break;
@@ -557,6 +575,7 @@ breakpointMenuPrincipal:
                                         {
                                             Premium user = MusicApp.AtribuirContaPremuim(nomeU, pass);
                                             MusicApp.MostrarListaFavoritos(user);
+                                            Console.ReadKey();
                                             break;
                                         }
 
@@ -581,7 +600,7 @@ breakpointMenuPrincipal:
                         }
                     default:
                         {
-                            Console.WriteLine("Nenhuma opção válida selecionada");
+                            Console.WriteLine("Selecionei entre 0-2");
                             Thread.Sleep(2000);
                             goto breakpointUser;
                             break;
@@ -613,7 +632,15 @@ breakpointMenuPrincipal:
                 Console.WriteLine("10- Listar User");
                 Console.WriteLine("11- Eliminar Musica da PLaylist genérica");
                 Console.WriteLine("12- Mostrar Musicas da PLaylist genérica");
+                Console.WriteLine("\n Escolha uma opção");
                 int opcao2 = int.Parse(Console.ReadLine());
+
+                while (opcao2<0 || opcao2>12)
+                {
+                    Console.WriteLine("Selecione entre 0 - 12");
+                    Thread.Sleep(1000);
+                    goto menuAdmin;
+                }
                 switch (opcao2)
                 {
                     case 0:
@@ -779,8 +806,8 @@ breakpointMenuPrincipal:
                         }
                     case 11:
                         {
-                            Console.WriteLine("O nome da PLaylist a eliminar a musica");
-                            string nomePlaylist = Console.ReadLine();
+                            ;
+                            string nomePlaylist = "Default";
                             if (MusicApp.PlayListAEliminar(nomePlaylist) != null)
                             {
                                 Playlist playlist = MusicApp.PlayListAEliminar(nomePlaylist);

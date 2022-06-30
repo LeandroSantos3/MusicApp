@@ -1,4 +1,4 @@
-﻿
+﻿//a44097 - Leandro Santos
 namespace Trabalho_Prático
 {
     internal class Artista
